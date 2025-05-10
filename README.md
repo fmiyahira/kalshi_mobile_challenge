@@ -13,6 +13,7 @@ Welcome to the **Kalshi Financial Wellness App**! This project is a Flutter-base
 - [How to Run](#how-to-run)
 - [Testing](#testing)
 - [Tech Stack](#tech-stack)
+- [Architecture & Best Practices](#architecture--best-practices)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -107,6 +108,14 @@ flutter test
 - **Dart** (programming language)
 - **ValueNotifier** (state management)
 - **Custom Theming** (fonts, colors, icons)
+
+---
+
+## 🧩 Architecture & Best Practices
+- Use of **dependency injection** to decouple components, making maintenance and automated testing easier.
+- Modular structure, separating domain, presentation, and business logic.
+- Unit and widget tests written to ensure the reliability of business rules and the user interface.
+- Clean Architecture and SOLID principles applied to promote scalability and ease of code evolution.
 
 ---
 
