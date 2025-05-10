@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:kalshi_mobile_challenge/src/core/shared/enums/buttom_style_enum.dart';
+import 'package:kalshi_mobile_challenge/src/core/shared/extensions/string_extension.dart';
+import 'package:kalshi_mobile_challenge/src/core/shared/ui/widgets/card_template_widget.dart';
 import 'package:kalshi_mobile_challenge/src/core/shared/ui/widgets/custom_app_bar_widget.dart';
-import 'package:kalshi_mobile_challenge/src/core/theme/app_assets.dart';
+import 'package:kalshi_mobile_challenge/src/core/shared/ui/widgets/custom_buttom.dart';
+import 'package:kalshi_mobile_challenge/src/core/shared/ui/widgets/custom_text_form_field.dart';
 import 'package:kalshi_mobile_challenge/src/core/theme/app_colors.dart';
 import 'package:kalshi_mobile_challenge/src/core/theme/app_spacing.dart';
 import 'package:kalshi_mobile_challenge/src/core/theme/app_text_styles.dart';
+import 'package:kalshi_mobile_challenge/src/features/wellness_test/domain/enums/wellness_test_status.dart';
 import 'package:kalshi_mobile_challenge/src/features/wellness_test/presentation/pages/result_page.dart';
+import 'package:kalshi_mobile_challenge/src/features/wellness_test/presentation/widgets/security_informations_widget.dart';
 
 class FormPage extends StatelessWidget {
   const FormPage({super.key});
+
+  void _onContinueButtonPressed(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder:
+            (context) => const ResultPage(
+              wellnessTestStatusEnum: WellnessTestStatusEnum.healthy,
+            ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,208 +50,53 @@ class FormPage extends StatelessWidget {
                     style: AppTextStyles.subtitle.copyWith(
                       color: AppColors.primary,
                     ),
-                    children: <TextSpan>[
-                      TextSpan(text: 'Let\'s find out your '),
-                      TextSpan(
-                        text: 'financial\nwellness score.',
-                        style: AppTextStyles.subtitle.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
+                    children:
+                        'Let\'s find out your *financial\nwellness score.*'
+                            .formatBoldText(),
                   ),
                 ),
               ),
               SizedBox(height: AppSpacing.md),
-              Card(
-                color: AppColors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(AppSpacing.sm),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: SvgPicture.asset(
-                          AppAssets.logoIcon,
-                          height: AppSpacing.logoIconHeight,
-                        ),
-                      ),
-                      SizedBox(height: AppSpacing.sm),
-                      Center(
-                        child: Text(
-                          'Financial wellness test',
-                          style: AppTextStyles.xsHeadingSmall,
-                        ),
-                      ),
-                      Center(
-                        child: Text(
-                          'Enter your financial information below',
-                          style: AppTextStyles.paragrath.copyWith(
-                            color: AppColors.secondary,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: AppSpacing.sm),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Annual income',
-                            style: AppTextStyles.description.copyWith(
-                              color: AppColors.secondaryDarkest,
-                            ),
-                          ),
-                          SizedBox(height: AppSpacing.xxs),
-                          TextFormField(
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            keyboardType: TextInputType.number,
-                            style: AppTextStyles.lgHeadingSmall.copyWith(
-                              color: AppColors.secondaryDark,
-                            ),
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(
-                                vertical: 14,
-                                horizontal: AppSpacing.xs,
-                              ),
-                              prefixIcon: UnconstrainedBox(
-                                child: SvgPicture.asset(
-                                  AppAssets.dollarSignIcon,
-                                  height: AppSpacing.md,
-                                  width: AppSpacing.md,
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  AppSpacing.xxxs,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: AppColors.secondary50,
-                                ),
-                              ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: AppColors.secondary50,
-                                ),
-                              ),
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: AppColors.secondary50,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: AppSpacing.sm),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Monthly Costs',
-                            style: AppTextStyles.description.copyWith(
-                              color: AppColors.secondaryDarkest,
-                            ),
-                          ),
-                          SizedBox(height: AppSpacing.xxs),
-                          TextFormField(
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            keyboardType: TextInputType.number,
-                            style: AppTextStyles.lgHeadingSmall.copyWith(
-                              color: AppColors.secondaryDark,
-                            ),
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(
-                                vertical: 14,
-                                horizontal: AppSpacing.xs,
-                              ),
-                              prefixIcon: UnconstrainedBox(
-                                child: SvgPicture.asset(
-                                  AppAssets.dollarSignIcon,
-                                  height: AppSpacing.md,
-                                  width: AppSpacing.md,
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  AppSpacing.xxxs,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: AppColors.secondary50,
-                                ),
-                              ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: AppColors.secondary50,
-                                ),
-                              ),
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: AppColors.secondary50,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: AppSpacing.sm),
-                      SizedBox(
-                        width: double.infinity,
-
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const ResultPage(),
-                              ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
-                            padding: const EdgeInsets.symmetric(vertical: 20),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                AppSpacing.xl,
-                              ),
-                            ),
-                          ),
-                          child: Text(
-                            'Continue',
-                            style: AppTextStyles.button.copyWith(
-                              color: AppColors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: AppSpacing.md),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.sm,
-                  11,
-                  AppSpacing.sm,
-                  11,
-                ),
-                child: Column(
+              CardTemplateWidget(
+                childContent: Column(
                   children: [
-                    SvgPicture.asset(AppAssets.lockIcon, height: AppSpacing.md),
-                    SizedBox(height: AppSpacing.sm),
-                    Text(
-                      'Your financial information is encrypted and secure. We\'ll never share or sell any of your personal data.',
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.description.copyWith(
-                        color: AppColors.secondaryDark,
+                    Center(
+                      child: Text(
+                        'Financial wellness test',
+                        style: AppTextStyles.xsHeadingSmall,
                       ),
+                    ),
+                    Center(
+                      child: Text(
+                        'Enter your financial information below',
+                        style: AppTextStyles.paragrath.copyWith(
+                          color: AppColors.secondary,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: AppSpacing.sm),
+                    CustomTextFormField(
+                      label: 'Annual Income',
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      onChanged: (value) {},
+                    ),
+                    SizedBox(height: AppSpacing.sm),
+                    CustomTextFormField(
+                      label: 'Monthly Costs',
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      onChanged: (value) {},
+                    ),
+                    SizedBox(height: AppSpacing.sm),
+                    CustomButtom(
+                      text: 'Continue',
+                      onPressed: () => _onContinueButtonPressed(context),
+                      buttomStyleEnum: ButtomStyleEnum.primary,
                     ),
                   ],
                 ),
               ),
+              SizedBox(height: AppSpacing.md),
+              SecurityInformationsWidget(),
             ],
           ),
         ),
