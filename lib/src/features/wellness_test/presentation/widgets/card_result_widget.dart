@@ -25,6 +25,7 @@ class CardResultWidget extends StatelessWidget {
           SizedBox(height: AppSpacing.md),
           Text(
             wellnessTestStatusEnum.title,
+            textAlign: TextAlign.center,
             style: AppTextStyles.lgHeadingSmall,
           ),
           RichText(

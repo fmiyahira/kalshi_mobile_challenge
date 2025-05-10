@@ -9,6 +9,7 @@ import 'package:kalshi_mobile_challenge/src/core/theme/app_text_styles.dart';
 class CustomTextFormField extends StatelessWidget {
   final String label;
   final Function(String) onChanged;
+  final TextInputType? keyboardType;
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
 
@@ -16,6 +17,7 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     required this.label,
     required this.onChanged,
+    required this.keyboardType,
     this.controller,
     this.inputFormatters,
   });
@@ -36,7 +38,7 @@ class CustomTextFormField extends StatelessWidget {
           controller: controller,
           onChanged: onChanged,
           inputFormatters: inputFormatters,
-          keyboardType: TextInputType.number,
+          keyboardType: keyboardType,
           style: AppTextStyles.lgHeadingSmall.copyWith(
             color: AppColors.secondaryDark,
           ),
