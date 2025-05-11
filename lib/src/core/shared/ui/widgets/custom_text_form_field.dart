@@ -12,6 +12,9 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
+  final FocusNode? focusNode;
+  final Function(String)? onFieldSubmitted;
+  final TextInputAction? textInputAction;
 
   const CustomTextFormField({
     super.key,
@@ -20,6 +23,9 @@ class CustomTextFormField extends StatelessWidget {
     required this.keyboardType,
     this.controller,
     this.inputFormatters,
+    this.focusNode,
+    this.onFieldSubmitted,
+    this.textInputAction,
   });
 
   @override
@@ -35,10 +41,13 @@ class CustomTextFormField extends StatelessWidget {
         ),
         SizedBox(height: AppSpacing.xxs),
         TextFormField(
+          focusNode: focusNode,
+          onFieldSubmitted: onFieldSubmitted,
           controller: controller,
           onChanged: onChanged,
           inputFormatters: inputFormatters,
           keyboardType: keyboardType,
+          textInputAction: textInputAction,
           style: AppTextStyles.lgHeadingSmall.copyWith(
             color: AppColors.secondaryDark,
           ),

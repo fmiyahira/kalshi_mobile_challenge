@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kalshi_mobile_challenge/src/core/plugins/injector/app_injector.dart';
 import 'package:kalshi_mobile_challenge/src/features/wellness_test/domain/enums/wellness_test_status.dart';
 import 'package:kalshi_mobile_challenge/src/features/wellness_test/presentation/pages/form_page.dart';
 import 'package:kalshi_mobile_challenge/src/features/wellness_test/presentation/pages/result_page.dart';
@@ -14,6 +15,10 @@ void main() {
 
   setUp(() {
     mockWellnessTestStore = MockWellnessTestStore();
+    AppInjector.I.registerFactory<WellnessTestStore>(
+      () => mockWellnessTestStore,
+    );
+
     registerFallbackValue(WellnessTestStoreInitialState());
     registerFallbackValue(
       WellnessTestStoreSuccessState(
@@ -22,15 +27,17 @@ void main() {
     );
   });
 
+  tearDown(() {
+    AppInjector.I.unregister<WellnessTestStore>();
+  });
+
   group('FormPage', () {
     testWidgets('| FormPage displays all widgets correctly', (tester) async {
       when(
         () => mockWellnessTestStore.value,
       ).thenReturn(WellnessTestStoreInitialState());
 
-      await tester.pumpWidget(
-        MaterialApp(home: FormPage(wellnessTestStore: mockWellnessTestStore)),
-      );
+      await tester.pumpWidget(MaterialApp(home: FormPage()));
 
       expect(find.text('Financial wellness test'), findsOneWidget);
       expect(
@@ -49,9 +56,7 @@ void main() {
         () => mockWellnessTestStore.value,
       ).thenReturn(WellnessTestStoreInitialState());
 
-      await tester.pumpWidget(
-        MaterialApp(home: FormPage(wellnessTestStore: mockWellnessTestStore)),
-      );
+      await tester.pumpWidget(MaterialApp(home: FormPage()));
 
       final continueButton = find.byWidgetPredicate(
         (Widget w) => w is ElevatedButton && w.onPressed == null,
@@ -68,9 +73,7 @@ void main() {
         ),
       );
 
-      await tester.pumpWidget(
-        MaterialApp(home: FormPage(wellnessTestStore: mockWellnessTestStore)),
-      );
+      await tester.pumpWidget(MaterialApp(home: FormPage()));
 
       final continueButton = find.byWidgetPredicate(
         (Widget w) => w is ElevatedButton && w.onPressed != null,
